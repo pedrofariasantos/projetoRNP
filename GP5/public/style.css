@@ -1,0 +1,54 @@
+/* Estilização para nav-item */
+.nav-item {
+    display: flex; /* Usa flexbox para alinhamento */
+    justify-content: space-between; /* Espaço entre os itens */
+    align-items: center; /* Alinha os itens verticalmente */
+    margin-top: 1.6rem; /* Margem superior */
+    margin-bottom: 0.25rem; /* Margem inferior */
+    text-transform: uppercase; /* Transforma o texto para maiúsculas */
+}
+
+/* Estilização para nav-link */
+.nav-item .nav-link {
+    color: var(--bs-body-color); /* Cor do link (pode definir uma variável CSS ou uma cor específica) */
+    text-decoration: none; /* Remove a linha de sublinhado */
+    margin-bottom: 0; /* Sem margem inferior */
+}
+
+/* Estilo para hover */
+.nav-item .nav-link:hover {
+    text-decoration: none; /* Mantém sem linha de sublinhado ao passar o mouse */
+}
+
+/* Diminuir a barra preta no topo */
+.navbar-brand {
+    padding-top: 0.5rem; /* Reduzir o preenchimento superior */
+    padding-bottom: 0.5rem; /* Reduzir o preenchimento inferior */
+    /* Outros estilos permanecem os mesmos */
+  }
+  
+  /* Exemplo de uso de porcentagem e vw/vh */
+  #erro, #sucesso {
+    top: 5vh; /* Uso de vh para a altura */
+    right: 2vw; /* Uso de vw para a largura */
+    width: 20vw; /* Uso de vw para a largura - já está em porcentagem */
+    /* Outros estilos permanecem os mesmos */
+  }
+  
+  #progress {
+    height: 2vh; /* Uso de vh para a altura, tornando-a responsiva */
+    /* Outros estilos permanecem os mesmos */
+  }
+  
+  /* Se necessário, ajustar outras propriedades para usar %, vw ou vh */
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.text {
+    text-align: center;
+}
