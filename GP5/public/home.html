@@ -91,7 +91,7 @@
 		 <nav id="sidebarMenu" class="col-md-3 col-lg-2 mt-2 d-md-block bg-body-tertiary sidebar collapse">
 	    <div class="position-sticky pt-3 sidebar-sticky">
 			<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase me-1">
-				<a class="link-secondary" href="/" style="text-decoration: none;">
+				<a class="link-secondary" href="/mapa" style="text-decoration: none;">
 					  <span style="margin-bottom: 2px">Viagem</span>
 					  <span data-feather="file-text" class="align-text-bottom"></span>
 				</a>
@@ -125,24 +125,33 @@
 
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 		<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2" id="title">Home</h1>
+			<h1 class="h2" id="title">Painel de Controle</h1>
 			<div class="btn-toolbar mb-2 mb-md-0">
-				<div class="btn-group me-2">
-					<button type="button" onclick="newFav(1)" class="btn btn-sm btn-outline-secondary">Adicionar aos Favoritos</button>
-					<!-- <button type="button" onclick="downloadPDF(1)" class="btn btn-sm btn-outline-secondary">PDF Relatório</button> -->
-				</div>
 			</div>
 		</div>
 
 		<!-- CRIA-SE O OBJETO DE ACCORDION OOOOOO -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 text-start"></main>
-            <p class="lead text-center">
-                Bem vindo ao site GP5! Aqui você irá achar todas as funcionalidade de nosso site, basta você clicar nos botões a baixo 
-            </p>
-            <button type="button" class="btn btn-primary btn-lg">Começar Viagem</button>
-            <button type="button" class="btn btn-primary btn-lg">Entrega</button>
-            <button type="button" class="btn btn-primary btn-lg">Viagens</button>
-        </main>	
+		<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 text-start">
+			<div class="text-center">
+				<p class="lead">
+					Bem vindo ao site GP5! Aqui você irá achar todas as funcionalidades de nosso site, basta você clicar nos botões abaixo.
+				</p>
+				<div class="row justify-content-center">
+					<div class="col-auto">
+						<button type="button" id="btnComecarViagem" class="btn btn-primary btn-lg mb-2">Começar Viagem</button>
+					</div>
+					<div class="col-auto">
+						<button type="button" id="btnEntrega" class="btn btn-primary btn-lg mb-2">Entrega</button>
+					</div>
+					<div class="col-auto">
+						<button type="button" id="btnViagens" class="btn btn-primary btn-lg mb-2">Viagens</button>
+					</div>
+				</div>
+			</div>
+		</main>
+		
+		
+		
 
         <script>
             const botaoAjuda = document.getElementById('botao-ajuda');

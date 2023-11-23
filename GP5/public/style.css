@@ -52,3 +52,31 @@
 .text {
     text-align: center;
 }
+
+.vertical-center {
+  min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  min-height: calc(100vh - 56px); /* Adjusted height if there's a fixed navbar (56px is the typical height of a navbar) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-container {
+  text-align: center; /* Center the buttons text */
+}
+.container {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    width: 100%; /* Garante que o container ocupe toda a largura */
+}
+
+.row {
+    display: flex;
+    justify-content: center; /* Centraliza os itens da linha */
+    width: 100%; /* Garante que a linha ocupe toda a largura do container */
+}
+
+.col-auto {
+    flex: 0 0 auto; /* Mantém os botões alinhados corretamente */
+}
