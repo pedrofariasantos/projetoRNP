@@ -10,7 +10,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<link href="/GP5/public/style.css" rel="stylesheet">
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -107,80 +106,80 @@
 	  </div>
 	</nav>
 
-	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-		<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2" id="title">Começar Viagem?</h1>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2" id="title">Selecionar Viagem</h1>
+        </div>
 
-		</div>
-		<script>		function selectOption(option, dropdownId) {
-			var dropdownButton = document.getElementById(dropdownId);
-			dropdownButton.innerText = option.innerText;
-		}</script>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <!-- Dropdown Lugar de Saída -->
+    <div class="btn-group me-2">
+      <button id="dropdownButtonCidades" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Lugar de Saída
+      </button>
+      <div class="dropdown-menu">
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Biguaçu</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Blumenau</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Caxias do Sul</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Curitiba (CBA_U16)</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Gravataí</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Itajaí</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Capivari de Baixo</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Joinville</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">São Francisco de Paula</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Palhoça</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Curitiba (POP_PR_UPS)</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Porto Alegre</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Florianópolis (POP_SC_UPS)</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Florianópolis (SEDE_U16)</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Siderópolis</button>
+        <button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Biguaçu</button>
+      </div>
+    </div>
 
-		<nav class="navbar navbar-expand-lg bg-body-tertiary">
-				  <div class="dropdown me-2">
-					<button id="dropdownButtonCidades" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					  Lugar de Saída
-					</button>
-						<div class="dropdown-menu">
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Biguaçu</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Blumenau</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Caxias do Sul</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Curitiba (CBA_U16)</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Gravataí</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Itajaí</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Capivari de Baixo</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Joinville</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">São Francisco de Paula</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Palhoça</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Curitiba (POP_PR_UPS)</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Porto Alegre</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Florianópolis (POP_SC_UPS)</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Florianópolis (SEDE_U16)</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'dropdownButtonCidades')">Siderópolis</button>
-						</div>
-					</div>
-					<div class="btn-group me-2">
-						<button id="destino" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Destino
-						</button>
-						<div class="dropdown-menu">
-							<!-- Itens do Dropdown para Cidades com evento onclick ajustado -->
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Biguaçu</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Blumenau</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Caxias do Sul</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Curitiba (CBA_U16)</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Gravataí</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Itajaí</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Capivari de Baixo</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Joinville</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">São Francisco de Paula</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Palhoça</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Curitiba (POP_PR_UPS)</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Porto Alegre</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Florianópolis (POP_SC_UPS)</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Florianópolis (SEDE_U16)</button>
-							<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Siderópolis</button>
-						</div>
-					</div>
-				<form class="d-flex" role="search">
-				  <button class="btn btn-outline-success" type="submit">Começar</button>
-				</form>
-			  </div>
-			</div>
-		  </nav>
-		<!-- CRIA-SE O OBJETO DE ACCORDION OOOOOO -->
-		<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div class="centralizado-e-grande">
-				
-						
-		
-						<!-- Outros Dropdowns conforme necessário -->
-					</div>
-				</div>
-			</div>
-		</main>		
+    <!-- Dropdown Destino -->
+    <div class="btn-group me-2">
+      <button id="destino" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Destino
+      </button>
+      <div class="dropdown-menu">
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Biguaçu</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Blumenau</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Caxias do Sul</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Curitiba (CBA_U16)</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Gravataí</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Itajaí</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Capivari de Baixo</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Joinville</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">São Francisco de Paula</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Palhoça</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Curitiba (POP_PR_UPS)</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Porto Alegre</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Florianópolis (POP_SC_UPS)</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Florianópolis (SEDE_U16)</button>
+		<button type="button" class="dropdown-item" onclick="selectOption(this, 'destino')">Siderópolis</button>
+      </div>
+    </div>
 
+    <!-- Botão Começar -->
+    <div class="col-auto">
+      <button type="button" id="botaoComecar" class="btn btn-primary btn-lg mb-2">Começar</button>
+    </div>
+  </nav>
+
+  
+  <div class="row mt-3">
+	<!-- Card container -->
+	<div class="col-md-6" id="localDoCard">
+		<!-- Card will be dynamically inserted here -->
+	</div>
+	
+	<!-- Map container -->
+	<div class="col-md-6">
+		<iframe id="mapaFrame" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+	</div>
+</div>
+</main>
 	<script>
         const botaoAjuda = document.getElementById('botao-ajuda');
         const modalAjuda = document.getElementById('modal-ajuda');

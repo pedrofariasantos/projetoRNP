@@ -19,8 +19,8 @@ router.get('/entrega', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/entrega.html'));
 });
 
-router.get('/mapa', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/mapa.html'));
+router.get('/mapa_biguacu_poa', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/mapa_biguacu_poa.html'));
 });
 
 module.exports = router;
