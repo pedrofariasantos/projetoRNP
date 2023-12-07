@@ -5,6 +5,11 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 router.use(bodyParser.json());
 
+
+const fs = require('fs');
+
+
+
 // Abre a conexão com o banco de dados
 let db = new sqlite3.Database('public/viagens.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
@@ -24,17 +29,30 @@ router.get('/viagem', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/viagem.html'));
 });
 
-router.get('/comecar_viagem/:numero?', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/comecar.html'));
+router.get('/comecar_viagem/:codigo_ativo?', (req, res) => {
+    const codigo_ativo = req.params.codigo_ativo || '';
+
+    fs.readFile(path.join(__dirname, 'public/comecar.html'), 'utf8', function (err, html) {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Erro ao carregar a página');
+        }
+
+        // Injeta o código ativo no HTML
+        const modifiedHtml = html.replace('<!--INJETAR_CODIGO_ATIVO-->', `<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('assetCodeInput').value = '${codigo_ativo}'; });</script>`);
+
+        res.send(modifiedHtml);
+    });
 });
 
-router.post('/comecar_viagem/:numero?', (req, res) => {
-    let { startCity, endCity, assetCode, dataHoraInicio, viagemFinalizada } = req.body;
-    const numero = req.params.numero;
 
-    // Se o número está presente na URL, use-o em vez do valor do corpo da requisição
-    if (numero) {
-        assetCode = numero;
+router.post('/comecar_viagem/:codigo_ativo?', (req, res) => {
+    let { startCity, endCity, assetCode, dataHoraInicio, viagemFinalizada } = req.body;
+    const codigo_ativo = req.params.codigo_ativo;
+
+    // Se o código_ativo está presente na URL, use-o em vez do valor do corpo da requisição
+    if (codigo_ativo) {
+        assetCode = codigo_ativo;
     }
 
     // Aqui você insere os dados no banco de dados
@@ -55,6 +73,11 @@ router.get('/entrega', (req, res) => {
 // Rota para servir a página do mapa
 router.get('/mapa', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/mapa.html'));
+});
+
+// Rota para servir a página de registrar ativo
+router.get('/registrar', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/registrar.html'));
 });
 
 
