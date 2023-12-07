@@ -134,91 +134,37 @@
 							<!-- Dropdown Lugar de Saída -->
 							<input type="hidden" id="startCity" value="">
 							<div class="btn-group me-2">
-								<button id="dropdownButtonCidades" class="btn btn-outline-secondary dropdown-toggle"
-									type="button" data-bs-toggle="dropdown" aria-expanded="false">
-									Lugar de Saída
-								</button>
-								<div class="dropdown-menu">
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Biguaçu</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Blumenau</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Caxias do Sul</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Curitiba
-										(CBA_U16)</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Gravataí</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Itajaí</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Capivari de Baixo</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Joinville</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">São Francisco de
-										Paula</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Palhoça</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Curitiba
-										(POP_PR_UPS)</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Porto Alegre</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Florianópolis
-										(POP_SC_UPS)</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Florianópolis
-										(SEDE_U16)</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Siderópolis</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'dropdownButtonCidades')">Biguaçu</button>
-								</div>
-							</div>
-
-							<!-- Dropdown Destino -->
-							<input id="endCity" type="hidden" value="">
-							<div class="btn-group me-2">
-								<button id="destino" class="btn btn-outline-secondary dropdown-toggle" type="button"
-									data-bs-toggle="dropdown" aria-expanded="false">
-									Destino
-								</button>
-								<div class="dropdown-menu">
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Biguaçu</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Blumenau</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Caxias do Sul</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Curitiba (CBA_U16)</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Gravataí</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Itajaí</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Capivari de Baixo</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Joinville</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">São Francisco de Paula</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Palhoça</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Curitiba (POP_PR_UPS)</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Porto Alegre</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Florianópolis (POP_SC_UPS)</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Florianópolis (SEDE_U16)</button>
-									<button type="button" class="dropdown-item"
-										onclick="selectOption(this, 'destino')">Siderópolis</button>
-								</div>
-							</div>
+								<div class="container-dos-botoes">
+									<div class="form-group">
+										<label for="startCity">Cidade de partida:</label>
+										<select class="form-select" id="startCity">
+											<option value="Biguaçu">Biguaçu</option>
+											<option value="Porto Alegre">Porto Alegre</option>
+											<option value="Joinville">Joinville</option>
+											<option value="Palhoça">Palhoça</option>
+											<option value="Caxias do Sul">Caxias do Sul</option>
+											<option value="Siderópolis">Siderópolis</option>
+										</select>
+									</div>
+				
+									<div class="form-group">
+										<label for="endCity">Cidade de destino</label>
+										<select class="form-select" id="endCity">
+											<option value="Biguaçu">Biguaçu</option>
+											<option value="Porto Alegre">Porto Alegre</option>
+											<option value="Joinville">Joinville</option>
+											<option value="Palhoça">Palhoça</option>
+											<option value="Caxias do Sul">Caxias do Sul</option>
+											<option value="Siderópolis">Siderópolis</option>
+										</select>
+									</div>
+				
+									<div class="form-group">
+										<label for="assetCodeInput">Código do Ativo:</label>
+										<input type="text" class="form-control" id="assetCodeInput">
+									</div>
+									<br>
+									<div>
 
 							<!-- Botão Começar -->
 							<div class="col-auto">

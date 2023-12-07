@@ -64,10 +64,11 @@
                             <span data-feather="file-text" class="align-text-bottom"></span>
                         </a>
                     </h6>
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase me-1">
+                    <h6
+                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase me-1">
                         <a class="link-secondary" href="/registrar" style="text-decoration: none;">
-                              <span style="margin-bottom: 2px">Registrar Ativo</span>
-                              <span data-feather="file-text" class="align-text-bottom"></span>
+                            <span style="margin-bottom: 2px">Registrar Ativo</span>
+                            <span data-feather="file-text" class="align-text-bottom"></span>
                         </a>
                     </h6>
                 </div>
@@ -104,6 +105,7 @@
                             <option value="Palhoça">Palhoça</option>
                             <option value="Caxias do Sul">Caxias do Sul</option>
                             <option value="Siderópolis">Siderópolis</option>
+                            <option value="Manutenção">MANUTENÇÃO</option>
                         </select>
                     </div>
 
@@ -113,10 +115,34 @@
                     </div>
                     <br>
                     <div>
-                        <button id="iniciarViagemBtn" type="button" class="btn btn-primary">Iniciar Viagem</button>
+                        <button id="iniciarViagemBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Iniciar Viagem</button>
                     </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                               <h3> Viagem iniciada com sucesso!</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Você pode acessar suas viagens no menu "Viagens" localizado no canto esquerdo do site.
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    const myModal = document.getElementById('myModal')
+                    const myInput = document.getElementById('myInput')
 
+                    myModal.addEventListener('shown.bs.modal', () => {
+                        myInput.focus()
+                    })
+                </script>
                 <!-- Seu script para jQuery e código JavaScript aqui -->
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -144,7 +170,7 @@
                         }
                     });
 
-                    
+
                 </script>
                 <script src="/GP5/public/index.js"></script>
                 <script src="/GP5/public/mapa.js"></script>
