@@ -115,10 +115,11 @@
 									<span data-feather="file-text" class="align-text-bottom"></span>
 								</a>
 							</h6>
-							<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase me-1">
+							<h6
+								class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase me-1">
 								<a class="link-secondary" href="/registrar" style="text-decoration: none;">
-									  <span style="margin-bottom: 2px">Registrar Ativo</span>
-									  <span data-feather="file-text" class="align-text-bottom"></span>
+									<span style="margin-bottom: 2px">Registrar Ativo</span>
+									<span data-feather="file-text" class="align-text-bottom"></span>
 								</a>
 							</h6>
 						</div>
@@ -146,7 +147,7 @@
 											<option value="Siderópolis">Siderópolis</option>
 										</select>
 									</div>
-				
+
 									<div class="form-group">
 										<label for="endCity">Cidade de destino</label>
 										<select class="form-select" id="endCity">
@@ -158,7 +159,7 @@
 											<option value="Siderópolis">Siderópolis</option>
 										</select>
 									</div>
-				
+
 									<div class="form-group">
 										<label for="assetCodeInput">Código do Ativo:</label>
 										<input type="text" class="form-control" id="assetCodeInput">
@@ -166,18 +167,18 @@
 									<br>
 									<div>
 
-							<!-- Botão Começar -->
-							<div class="col-auto">
-								<button type="button" id="botaoComecar"
-									class="btn btn-primary btn-lg mb-2">Começar</button>
-							</div>
+										<!-- Botão Começar -->
+										<button type="button" id="botaoComecar"
+											class="btn btn-primary btn-lg mb-2">Começar</button>
+
 						</nav>
 
 
 						<div class="row mt-3">
 							<!-- Card container -->
-							<div class="col-md-6" id="localDoCard">
-								<!-- Card will be dynamically inserted here -->
+							<div id="resultadosViagem"></div>
+
+								<!-- Card will be dynamically inserted here -->	
 							</div>
 
 							<!-- Map container -->

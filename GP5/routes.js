@@ -24,10 +24,6 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/home.html'));
 });
 
-// Rota para servir a página de viagem
-router.get('/viagem', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/viagem.html'));
-});
 
 router.get('/comecar_viagem/:codigo_ativo?', (req, res) => {
     const codigo_ativo = req.params.codigo_ativo || '';
@@ -79,6 +75,49 @@ router.get('/mapa', (req, res) => {
 router.get('/registrar', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/registrar.html'));
 });
+
+// Rota para servir a página de viagem e buscar dados
+// Rota para servir a página de viagem e/ou buscar dados
+router.get('/viagem', (req, res) => {
+    const { startCity, endCity, assetCodeInput } = req.query;
+
+    if (Object.keys(req.query).length > 0) {
+        let sql = 'SELECT * FROM trips';
+        let params = [];
+        let conditions = [];
+
+        if (startCity) {
+            conditions.push("local_saida LIKE ?");
+            params.push(`%${startCity}%`);
+        }
+        if (endCity) {
+            conditions.push("destino LIKE ?");
+            params.push(`%${endCity}%`);
+        }
+        if (assetCodeInput) {
+            conditions.push("codigo_ativo LIKE ?");
+            params.push(`%${assetCodeInput}%`);
+        }
+
+        if (conditions.length > 0) {
+            sql += ' WHERE ' + conditions.join(' AND ');
+        }
+
+        db.all(sql, params, (err, rows) => {
+            if (err) {
+                console.error(err.message);
+                res.status(500).send({ error: err.message });
+                return;
+            }
+            res.json(rows);
+        });
+    } else {
+        res.sendFile(path.join(__dirname, 'public/viagem.html'));
+    }
+});
+
+
+
 
 
 module.exports = router;
