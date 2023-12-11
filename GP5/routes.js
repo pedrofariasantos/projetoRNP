@@ -134,7 +134,8 @@ router.get('/entrega', (req, res) => {
 // Rota para finalizar viagens
 router.post('/entrega', (req, res) => {
     const { idViagem } = req.body;
-    const sql = 'UPDATE trips SET viagem_finalizada = 1 WHERE id_viagem = ?';
+    // Update query to set viagem_finalizada and data_hora_final
+    const sql = 'UPDATE trips SET viagem_finalizada = 1, data_hora_final = datetime(\'now\') WHERE id_viagem = ?';
 
     db.run(sql, [idViagem], function(err) {
         if (err) {
@@ -145,5 +146,6 @@ router.post('/entrega', (req, res) => {
         res.json({ message: 'Viagem finalizada com sucesso!' });
     });
 });
+
 
 module.exports = router;

@@ -36,7 +36,7 @@ const mqtt = require('mqtt');
 // Configurações MQTT
 const mqttBrokerUrl = 'wss://mqtt-dashboard.com:8884/mqtt'; // Endereço do broker MQTT
 const mqttClientId = 'clientId-zp6TCxjTBz'; // ID do cliente MQTT
-const mqttTopic = 'teste123dz'; // Tópico MQTT
+const mqttTopic = 'INTELI-RNP-M4T08-GP5'; // Tópico MQTT
 // Caminho completo para o banco de dados SQLite
 const dbFilePath = 'public/viagens.db';
 // Conectar ao banco de dados SQLite
