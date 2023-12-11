@@ -22,15 +22,6 @@
 			height: 100vh;
 		}
 
-		.container-dos-botoes {
-			display: flex;
-			justify-content: center;
-			/* Centraliza horizontalmente */
-			align-items: center;
-			/* Centraliza verticalmente se necessário */
-			height: 100%;
-			/* Altura completa do container para centralização vertical, se aplicável */
-		}
 
 		.modal {
 			display: none;
@@ -110,6 +101,13 @@
 
 							<h6
 								class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase me-1">
+								<a class="link-secondary" href="/viagem" style="text-decoration: none;">
+									<span style="margin-bottom: 2px">Viagens</span>
+									<span data-feather="file-text" class="align-text-bottom"></span>
+								</a>
+							</h6>
+							<h6
+								class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase me-1">
 								<a class="link-secondary" href="/entrega" style="text-decoration: none;">
 									<span style="margin-bottom: 2px">Entrega</span>
 									<span data-feather="file-text" class="align-text-bottom"></span>
@@ -131,121 +129,126 @@
 							<h1 class="h2" id="title">Selecionar Viagem</h1>
 						</div>
 
-						<nav class="navbar navbar-expand-lg bg-body-tertiary">
-							<!-- Dropdown Lugar de Saída -->
-							<input type="hidden" id="startCity" value="">
-							<div class="btn-group me-2">
-								<div class="container-dos-botoes">
-									<div class="form-group">
-										<label for="startCity">Cidade de partida:</label>
-										<select class="form-select" id="startCity">
-											<option value="Biguaçu">Biguaçu</option>
-											<option value="Porto Alegre">Porto Alegre</option>
-											<option value="Joinville">Joinville</option>
-											<option value="Palhoça">Palhoça</option>
-											<option value="Caxias do Sul">Caxias do Sul</option>
-											<option value="Siderópolis">Siderópolis</option>
-										</select>
-									</div>
+						<!-- Dropdown Lugar de Saída -->
 
-									<div class="form-group">
-										<label for="endCity">Cidade de destino</label>
-										<select class="form-select" id="endCity">
-											<option value="Biguaçu">Biguaçu</option>
-											<option value="Porto Alegre">Porto Alegre</option>
-											<option value="Joinville">Joinville</option>
-											<option value="Palhoça">Palhoça</option>
-											<option value="Caxias do Sul">Caxias do Sul</option>
-											<option value="Siderópolis">Siderópolis</option>
-										</select>
-									</div>
+						<div class="btn-group me-2">
+							<div class="container-dos-botoes">
+								<div class="form-group">
+									<label for="startCity">Cidade de partida:</label>
+									<select class="form-select" id="startCity">
+										<option value="Biguaçu">Biguaçu</option>
+										<option value="Porto Alegre">Porto Alegre</option>
+										<option value="Joinville">Joinville</option>
+										<option value="Palhoça">Palhoça</option>
+										<option value="Caxias do Sul">Caxias do Sul</option>
+										<option value="Siderópolis">Siderópolis</option>
+									</select>
+								</div>
 
-									<div class="form-group">
-										<label for="assetCodeInput">Código do Ativo:</label>
-										<input type="text" class="form-control" id="assetCodeInput">
-									</div>
+								<div class="form-group">
+									<label for="endCity">Cidade de destino</label>
+									<select class="form-select" id="endCity">
+										<option value="Biguaçu">Biguaçu</option>
+										<option value="Porto Alegre">Porto Alegre</option>
+										<option value="Joinville">Joinville</option>
+										<option value="Palhoça">Palhoça</option>
+										<option value="Caxias do Sul">Caxias do Sul</option>
+										<option value="Siderópolis">Siderópolis</option>
+									</select>
+								</div>
+
+								<div class="form-group">
+									<label for="assetCodeInput">Código do Ativo:</label>
+									<input type="text" class="form-control" id="assetCodeInput">
+								</div>
+								<br>
+								<input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="1"
+									autocomplete="off" checked>
+								<label class="btn btn-outline-primary" for="btnradio1">Finalizada</label>
+
+								<input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="0"
+									autocomplete="off">
+								<label class="btn btn-outline-primary" for="btnradio2">Não finalizada</label>
+								<!-- Botão Começar -->
+								<div>
 									<br>
-									<div>
-
-										<!-- Botão Começar -->
-										<button type="button" id="botaoComecar"
-											class="btn btn-primary btn-lg mb-2">Começar</button>
-
-						</nav>
-
-
+									<button type="button" id="botaoBuscar"
+										class="btn btn-primary btn-lg mb-2">Buscar</button>
+								</div>
+							</div>
+						</div>
 						<div class="row mt-3">
 							<!-- Card container -->
 							<div id="resultadosViagem"></div>
 
-								<!-- Card will be dynamically inserted here -->	
-							</div>
-
-							<!-- Map container -->
-							<div class="col-md-6">
-								<iframe id="mapaFrame" width="100%" height="450" style="border:0;" allowfullscreen=""
-									loading="lazy"></iframe>
-							</div>
+							<!-- Card will be dynamically inserted here -->
 						</div>
-					</main>
-					<script>
-						const botaoAjuda = document.getElementById('botao-ajuda');
-						const modalAjuda = document.getElementById('modal-ajuda');
-						const fecharModal = document.getElementById('fechar-modal');
 
-						botaoAjuda.addEventListener('click', function () {
-							modalAjuda.style.display = 'block';
-						});
+						<!-- Map container -->
+						<div class="col-md-6">
+							<iframe id="mapaFrame" width="100%" height="450" style="border:0;" allowfullscreen=""
+								loading="lazy"></iframe>
+						</div>
+				</div>
+				</main>
+				<script>
+					const botaoAjuda = document.getElementById('botao-ajuda');
+					const modalAjuda = document.getElementById('modal-ajuda');
+					const fecharModal = document.getElementById('fechar-modal');
 
-						fecharModal.addEventListener('click', function () {
+					botaoAjuda.addEventListener('click', function () {
+						modalAjuda.style.display = 'block';
+					});
+
+					fecharModal.addEventListener('click', function () {
+						modalAjuda.style.display = 'none';
+					});
+
+					window.addEventListener('click', function (event) {
+						if (event.target === modalAjuda) {
 							modalAjuda.style.display = 'none';
-						});
+						}
+					});
 
-						window.addEventListener('click', function (event) {
-							if (event.target === modalAjuda) {
-								modalAjuda.style.display = 'none';
-							}
-						});
-
-					</script>
+				</script>
 
 
-					<script src="/GP5/public/index.js"></script>
-					<script src="/GP5/public/mapa.js"></script>
-					<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-						integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-						crossorigin="anonymous"></script>
+				<script src="/GP5/public/index.js"></script>
+				<script src="/GP5/public/mapa.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+					integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+					crossorigin="anonymous"></script>
 
-					<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-						integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-						crossorigin="anonymous"></script>
-					<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
-						integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG"
-						crossorigin="anonymous"></script>
+				<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+					integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+					crossorigin="anonymous"></script>
+				<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
+					integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG"
+					crossorigin="anonymous"></script>
 
-					<script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
-							({ key: "AIzaSyC52kx_hADFDf9a5jb_BtIRaNaXS5aE9GA", v: "weekly" });</script>
+				<script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+						({ key: "AIzaSyC52kx_hADFDf9a5jb_BtIRaNaXS5aE9GA", v: "weekly" });</script>
 
 
 
-					<script type="module">
-						$(document).ready(function () {
-							$('textarea').each(function () {
-								$(this).on('input', function () {
-									this.style.height = 'auto';
-									this.style.height = (this.scrollHeight + 3) + 'px';
-								});
+				<script type="module">
+					$(document).ready(function () {
+						$('textarea').each(function () {
+							$(this).on('input', function () {
+								this.style.height = 'auto';
+								this.style.height = (this.scrollHeight + 3) + 'px';
+							});
 
-								// trigger input on collapsethree open
-								$('#collapseThree').on('shown.bs.collapse', function () {
-									$(this).find('textarea').trigger('input');
-								});
+							// trigger input on collapsethree open
+							$('#collapseThree').on('shown.bs.collapse', function () {
+								$(this).find('textarea').trigger('input');
 							});
 						});
+					});
 
 
 
-					</script>
+				</script>
 </body>
 
 </html>

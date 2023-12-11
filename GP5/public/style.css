@@ -80,3 +80,46 @@
 .col-auto {
     flex: 0 0 auto; /* Mantém os botões alinhados corretamente */
 }
+#resultadosViagem {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espaçamento entre os cards */
+}
+
+#resultadosEntrega {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espaçamento entre os cards */
+}
+.card {
+  flex: 0 0 18rem; /* Largura dos cards e evitar que eles cresçam */
+}
+
+#sidebarMenu {
+  height: 100vh;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.modal-conteudo {
+  border-radius: 10px;
+  background-color: #fff;
+  width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+}
+
+.botao-fechar {
+  float: right;
+  cursor: pointer;
+}

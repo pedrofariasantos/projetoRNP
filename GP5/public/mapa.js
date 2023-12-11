@@ -156,41 +156,4 @@ function geocodificarCidade(city, callback) {
     });
 }
 
-function enviarDadosViagem() {
-  if (!startDateTime || !endDateTime) {
-    console.log("Erro: startDateTime ou endDateTime é undefined");
-    return;
-  }
-  var startCity = document.getElementById('startCity').value;
-  var endCity = document.getElementById('endCity').value;
-  var assetCode = selectedAssetCode;
-  var inicio = formatarDataHora(startDateTime);
-  var termino = formatarDataHora(endDateTime);
-
-  var dadosViagem = {
-    local_saida: startCity,
-    destino: endCity,
-    codigo_ativo: assetCode,
-    data_hora_inicio: inicio,
-    data_hora_fim: termino
-  };
-
-  fetch('/comecar_viagem', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(dadosViagem),
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Resposta do servidor:', data);
-      if (data.message) {
-        alert("Viagem registrada com sucesso!");
-      }
-    })
-    .catch((error) => {
-      console.error('Erro:', error);
-    });
-}
 
