@@ -186,24 +186,37 @@
         <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 
         <script>
-            document.getElementById('iniciarViagemBtn').addEventListener('click', function() {
-                // Conecte-se ao broker MQTT
-                const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt');
-        
-                client.on('connect', function () {
-                    console.log('Conectado ao broker MQTT');
-        
-                    // Enviar a mensagem "GPS-ON" para o tópico
-                    client.publish('INTELI-RNP-M4T08-GP5', 'GPS-ON', function() {
-                        console.log('Mensagem enviada: GPS-ON');
-                        client.end(); // Encerra a conexão após enviar a mensagem
-                    });
-                });
-        
-                client.on('error', function (error) {
-                    console.log('Erro ao conectar ao broker MQTT:', error);
-                });
-            });
+document.getElementById('iniciarViagemBtn').addEventListener('click', function() {
+    // Obter o valor do código do ativo
+    var codigoAtivo = document.getElementById('assetCodeInput').value;
+
+    // Verificar se o código do ativo não está vazio
+    if(codigoAtivo.trim() === '') {
+        alert('Por favor, insira o código do ativo.');
+        return;
+    }
+
+    // Mensagem a ser enviada
+    var mensagem = codigoAtivo + ',GPS-ON';
+
+    // Conecte-se ao broker MQTT
+    const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt');
+
+    client.on('connect', function () {
+        console.log('Conectado ao broker MQTT');
+
+        // Enviar a mensagem para o tópico
+        client.publish('INTELI-RNP-M4T08-GP5', mensagem, function() {
+            console.log('Mensagem enviada:', mensagem);
+            client.end(); // Encerra a conexão após enviar a mensagem
+        });
+    });
+
+    client.on('error', function (error) {
+        console.log('Erro ao conectar ao broker MQTT:', error);
+    });
+});
+
         </script>
         
 
