@@ -26,13 +26,6 @@ app.listen(port, () => {
 });
 const mqtt = require('mqtt');
 
-
-
-
-
-
-
-
 // Configurações MQTT
 const mqttBrokerUrl = 'wss://mqtt-dashboard.com:8884/mqtt'; // Endereço do broker MQTT
 const mqttClientId = 'clientId-zp6TCxjTBz'; // ID do cliente MQTT
@@ -60,7 +53,7 @@ const handleMqttMessage = (topic, message) => {
       }
     );
   } else {
-    console.log('Mensagem MQTT ignorada: Formato inválido ou não contém coordenadas.');
+    console.log('Mensagem MQTT ignorada: Formato não contém coordenadas.');
   }
 };
 // Conectar ao broker MQTT

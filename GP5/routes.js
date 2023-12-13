@@ -63,9 +63,35 @@ router.post('/comecar_viagem/:codigo_ativo?', (req, res) => {
 
 
 // Rota para servir a página do mapa
-router.get('/mapa', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/mapa.html'));
+router.get('/mapa/:idViagem', (req, res) => {
+    const idViagem = req.params.idViagem;
+
+    // Substitua esta consulta pela consulta real que relaciona idViagem com locs
+    const sql = 'SELECT latitude, longitude, data_hora, codigo_ativo FROM locs WHERE id_viagem = ?';
+
+    db.all(sql, [idViagem], (err, rows) => {
+        if (err) {
+            console.error(err.message);
+            return res.status(500).send('Erro ao buscar dados de localização');
+        }
+
+        // Envie os dados junto com o HTML
+        fs.readFile(path.join(__dirname, 'public/mapa.html'), 'utf8', (err, html) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Erro ao carregar a página do mapa');
+            }
+
+            // Injeta os dados no HTML (substitua 'var locData = [];' pelo seu script de inicialização do mapa)
+            const modifiedHtml = html.replace('var locData = [];',
+                `var locData = ${JSON.stringify(rows)};`);
+
+            res.send(modifiedHtml);
+        });
+    });
 });
+
+
 
 // Rota para servir a página de registrar ativo
 router.get('/registrar', (req, res) => {

@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         botaoBuscar.addEventListener('click', buscarViagens);
     }
 
-    
+
 });
 
 function buscarViagens() {
@@ -73,43 +73,51 @@ function buscarViagens() {
     }
 
     fetch(`/viagem?${params.toString()}`)
-    .then(response => {
-        if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
-        return response.json();
-    })
-    .then(viagens => {
-        resultadosDiv.innerHTML = ''; // Limpa resultados anteriores
-        viagens.forEach(viagem => {
-            var card = document.createElement('div');
-            card.className = 'card';
-            card.style.width = '18rem';
+        .then(response => {
+            if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
+            return response.json();
+        })
+        .then(viagens => {
+            resultadosDiv.innerHTML = ''; // Limpa resultados anteriores
+            viagens.forEach(viagem => {
+                var card = document.createElement('div');
+                card.className = 'card';
+                card.style.width = '18rem';
 
-            // Função para formatar a data e hora
-            function formatarDataHora(dataHora) {
-                if (!dataHora) return 'Indisponível';
-                var data = new Date(dataHora);
-                return data.toLocaleString(); // Formata a data e hora conforme local
-            }
+                var botaoMapa = document.createElement('button');
+                botaoMapa.className = 'btn btn-primary';
+                botaoMapa.textContent = 'Abrir Mapa';
+                botaoMapa.onclick = function () {
+                    window.location.href = `/mapa/${viagem.id_viagem}`;
+                };
 
-            var dataHoraInicio = formatarDataHora(viagem.data_hora_inicio);
-            var dataHoraFinal = viagem.data_hora_final ? formatarDataHora(viagem.data_hora_final) : 'null';
+                // Função para formatar a data e hora
+                function formatarDataHora(dataHora) {
+                    if (!dataHora) return 'Indisponível';
+                    var data = new Date(dataHora);
+                    return data.toLocaleString(); // Formata a data e hora conforme local
+                }
 
-            card.innerHTML = `
+                var dataHoraInicio = formatarDataHora(viagem.data_hora_inicio);
+                var dataHoraFinal = viagem.data_hora_final ? formatarDataHora(viagem.data_hora_final) : 'null';
+
+                card.innerHTML = `
                 <div class="card-body">
                     <h5 class="card-title">Viagem: ${viagem.id_viagem}</h5>
                     <p>De: ${viagem.local_saida} Para: ${viagem.destino}</p>
                     <p>Código do Ativo: ${viagem.codigo_ativo}</p>
                     <p>Iniciada em: ${dataHoraInicio}</p>
                     <p>Finalizada em: ${dataHoraFinal}</p>
+                    <button class="btn btn-primary" onclick="window.location.href='/mapa/${viagem.id_viagem}'">Abrir Mapa</button>
                 </div>
             `;
-            resultadosDiv.appendChild(card);
+                resultadosDiv.appendChild(card);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao buscar viagens:', error);
+            resultadosDiv.innerHTML = '<p>Ocorreu um erro ao buscar as viagens.</p>';
         });
-    })
-    .catch(error => {
-        console.error('Erro ao buscar viagens:', error);
-        resultadosDiv.innerHTML = '<p>Ocorreu um erro ao buscar as viagens.</p>';
-    });
 }
 
 
@@ -176,32 +184,32 @@ function finalizarViagem(idViagem) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idViagem: idViagem })
     })
-    .then(response => {
-        if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
-        return response.json();
-    })
-    .then(data => {
-        alert('Viagem finalizada com sucesso!');
-        buscarEntregas(); // Atualiza a lista de entregas após finalizar a viagem
+        .then(response => {
+            if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            alert('Viagem finalizada com sucesso!');
+            buscarEntregas(); // Atualiza a lista de entregas após finalizar a viagem
 
-        // Segunda parte: Conectar ao broker MQTT e enviar a mensagem "GPS-OFF"
-        const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt');
+            // Segunda parte: Conectar ao broker MQTT e enviar a mensagem "GPS-OFF"
+            const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt');
 
-        client.on('connect', function () {
-            console.log('Conectado ao broker MQTT para finalizar a viagem', idViagem);
+            client.on('connect', function () {
+                console.log('Conectado ao broker MQTT para finalizar a viagem', idViagem);
 
-            // Enviar a mensagem "GPS-OFF" para o tópico
-            client.publish('INTELI-RNP-M4T08-GP5', 'GPS-OFF', function() {
-                console.log('Mensagem enviada: GPS-OFF');
-                client.end(); // Encerra a conexão após enviar a mensagem
+                // Enviar a mensagem "GPS-OFF" para o tópico
+                client.publish('INTELI-RNP-M4T08-GP5', 'GPS-OFF', function () {
+                    console.log('Mensagem enviada: GPS-OFF');
+                    client.end(); // Encerra a conexão após enviar a mensagem
+                });
             });
-        });
 
-        client.on('error', function (error) {
-            console.log('Erro ao conectar ao broker MQTT:', error);
+            client.on('error', function (error) {
+                console.log('Erro ao conectar ao broker MQTT:', error);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao finalizar viagem:', error);
         });
-    })
-    .catch(error => {
-        console.error('Erro ao finalizar viagem:', error);
-    });
 }
