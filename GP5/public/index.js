@@ -108,7 +108,7 @@ function buscarViagens() {
                     <p>Código do Ativo: ${viagem.codigo_ativo}</p>
                     <p>Iniciada em: ${dataHoraInicio}</p>
                     <p>Finalizada em: ${dataHoraFinal}</p>
-                    <button class="btn btn-primary" onclick="window.location.href='/mapa/${viagem.id_viagem}'">Abrir Mapa</button>
+                    <button class="btn btn-primary" onclick="window.location.href='/mapa/${viagem.codigo_ativo}/${viagem.data_hora_inicio}/${viagem.data_hora_final || ''}'">Abrir Mapa</button>
                 </div>
             `;
                 resultadosDiv.appendChild(card);

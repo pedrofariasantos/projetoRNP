@@ -1,6 +1,11 @@
 // Inicializa o mapa Leaflet
 function initMap() {
-  var mymap = L.map('mapid').setView([latitudeInicial, longitudeInicial], zoomInicial); // Substitua com valores iniciais
+  // Substitua com valores iniciais adequados
+  var latitudeInicial = -23.550520; // Exemplo: Latitude de São Paulo
+  var longitudeInicial = -46.633308; // Exemplo: Longitude de São Paulo
+  var zoomInicial = 13; // Exemplo: Nível de zoom inicial
+
+  var mymap = L.map('mapDIV').setView([latitudeInicial, longitudeInicial], zoomInicial);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -15,8 +20,14 @@ function addMarkersToMap(mymap, locations) {
   locations.forEach(loc => {
       L.marker([loc.latitude, loc.longitude])
           .addTo(mymap)
-          .bindPopup(`Data: ${loc.data_hora}<br>Código Ativo: ${loc.codigo_ativo}`);
+          .bindPopup(`Data: ${formatDate(loc.data_hora)}<br>Código Ativo: ${loc.codigo_ativo}`);
   });
+}
+
+// Função para formatar a data e hora
+function formatDate(dataHora) {
+  var date = new Date(dataHora);
+  return date.toLocaleString(); // Formata a data e hora conforme local
 }
 
 // Função principal que executa as funções de inicialização e adição de marcadores

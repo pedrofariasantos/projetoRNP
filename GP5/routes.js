@@ -63,29 +63,33 @@ router.post('/comecar_viagem/:codigo_ativo?', (req, res) => {
 
 
 // Rota para servir a página do mapa
-router.get('/mapa/:idViagem', (req, res) => {
-    const idViagem = req.params.idViagem;
+router.get('/mapa/:codigo_ativo/:data_hora_inicio/:data_hora_final?', (req, res) => {
+    let { codigo_ativo, data_hora_inicio, data_hora_final } = req.params;
+    let sql;
+    let params = [codigo_ativo, data_hora_inicio];
 
-    // Substitua esta consulta pela consulta real que relaciona idViagem com locs
-    const sql = 'SELECT latitude, longitude, data_hora, codigo_ativo FROM locs WHERE id_viagem = ?';
+    if (data_hora_final) {
+        sql = 'SELECT latitude, longitude, data_hora FROM locs WHERE codigo_ativo = ? AND data_hora >= ? AND data_hora <= ?';
+        params.push(data_hora_final);
+    } else {
+        sql = 'SELECT latitude, longitude, data_hora FROM locs WHERE codigo_ativo = ? AND data_hora >= ?';
+    }
 
-    db.all(sql, [idViagem], (err, rows) => {
+    db.all(sql, params, (err, rows) => {
         if (err) {
             console.error(err.message);
             return res.status(500).send('Erro ao buscar dados de localização');
         }
 
-        // Envie os dados junto com o HTML
+        // Leia o arquivo HTML antes de substituir os dados
         fs.readFile(path.join(__dirname, 'public/mapa.html'), 'utf8', (err, html) => {
             if (err) {
                 console.error(err);
                 return res.status(500).send('Erro ao carregar a página do mapa');
             }
 
-            // Injeta os dados no HTML (substitua 'var locData = [];' pelo seu script de inicialização do mapa)
-            const modifiedHtml = html.replace('var locData = [];',
-                `var locData = ${JSON.stringify(rows)};`);
-
+            // Injeta os dados no HTML
+            const modifiedHtml = html.replace('var locData = [];', `var locData = ${JSON.stringify(rows)};`);
             res.send(modifiedHtml);
         });
     });
@@ -160,9 +164,8 @@ router.get('/entrega', (req, res) => {
 // Rota para finalizar viagens
 router.post('/entrega', (req, res) => {
     const { idViagem } = req.body;
-    // Update query to set viagem_finalizada and data_hora_final
-    const sql = 'UPDATE trips SET viagem_finalizada = 1, data_hora_final = datetime(\'now\') WHERE id_viagem = ?';
-
+    // Use a função strftime do SQLite para formatar a data e hora no formato ISO 8601
+    const sql = "UPDATE trips SET viagem_finalizada = 1, data_hora_final = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE id_viagem = ?";
     db.run(sql, [idViagem], function(err) {
         if (err) {
             console.error(err.message);
@@ -172,6 +175,5 @@ router.post('/entrega', (req, res) => {
         res.json({ message: 'Viagem finalizada com sucesso!' });
     });
 });
-
 
 module.exports = router;
