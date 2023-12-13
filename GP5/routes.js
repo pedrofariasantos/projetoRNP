@@ -63,6 +63,7 @@ router.post('/comecar_viagem/:codigo_ativo?', (req, res) => {
 
 
 // Rota para servir a página do mapa
+// Rota para servir a página do mapa
 router.get('/mapa/:codigo_ativo/:data_hora_inicio/:data_hora_final?', (req, res) => {
     let { codigo_ativo, data_hora_inicio, data_hora_final } = req.params;
     let sql;
@@ -81,14 +82,12 @@ router.get('/mapa/:codigo_ativo/:data_hora_inicio/:data_hora_final?', (req, res)
             return res.status(500).send('Erro ao buscar dados de localização');
         }
 
-        // Leia o arquivo HTML antes de substituir os dados
         fs.readFile(path.join(__dirname, 'public/mapa.html'), 'utf8', (err, html) => {
             if (err) {
                 console.error(err);
                 return res.status(500).send('Erro ao carregar a página do mapa');
             }
 
-            // Injeta os dados no HTML
             const modifiedHtml = html.replace('var locData = [];', `var locData = ${JSON.stringify(rows)};`);
             res.send(modifiedHtml);
         });

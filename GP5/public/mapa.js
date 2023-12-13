@@ -22,6 +22,10 @@ function addMarkersToMap(mymap, locations) {
           .addTo(mymap)
           .bindPopup(`Data: ${formatDate(loc.data_hora)}<br>Código Ativo: ${loc.codigo_ativo}`);
   });
+
+  if (locations.length > 0) {
+      mymap.setView([locations[0].latitude, locations[0].longitude], 13);
+  }
 }
 
 // Função para formatar a data e hora

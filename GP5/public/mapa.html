@@ -136,32 +136,29 @@
   <script src="GP5/public/mapa.js"></script>
   <script src="GP5/public/index.js"></script>
   <script>
-    const botaoAjuda = document.getElementById('botao-ajuda');
-    const modalAjuda = document.getElementById('modal-ajuda');
-    const fecharModal = document.getElementById('fechar-modal');
+    // Código para os modais e outros elementos interativos
+    document.addEventListener('DOMContentLoaded', function () {
+        const botaoAjuda = document.getElementById('botao-ajuda');
+        const modalAjuda = document.getElementById('modal-ajuda');
+        const fecharModal = document.getElementById('fechar-modal');
 
-    botaoAjuda.addEventListener('click', function () {
-      modalAjuda.style.display = 'block';
+        if (botaoAjuda && modalAjuda && fecharModal) {
+            botaoAjuda.addEventListener('click', function () {
+                modalAjuda.style.display = 'block';
+            });
+
+            fecharModal.addEventListener('click', function () {
+                modalAjuda.style.display = 'none';
+            });
+
+            window.addEventListener('click', function (event) {
+                if (event.target === modalAjuda) {
+                    modalAjuda.style.display = 'none';
+                }
+            });
+        }
     });
-
-    fecharModal.addEventListener('click', function () {
-      modalAjuda.style.display = 'none';
-    });
-
-    window.addEventListener('click', function (event) {
-      if (event.target === modalAjuda) {
-        modalAjuda.style.display = 'none';
-      }
-    });
-  </script>
-  <script>
-    const myModal = document.getElementById('myModal')
-    const myInput = document.getElementById('myInput')
-
-    myModal.addEventListener('shown.bs.modal', () => {
-      myInput.focus()
-    })
-  </script>
+</script>
 </body>
 
 </html>
