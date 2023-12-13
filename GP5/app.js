@@ -1,50 +1,52 @@
+// Importando o módulo Express.js
 const express = require('express');
 const app = express();
 const port = 3000;
+
+// Importando o módulo body-parser para lidar com dados JSON e URL-encoded no corpo das requisições
 const bodyParser = require('body-parser');
-const routes = require('./routes'); // Importe as rotas do arquivo 'routes.js'
 
-app.use(bodyParser.json()); // para analisar application/json
-app.use(bodyParser.urlencoded({ extended: true })); // para analisar application/x-www-form-urlencoded
+// Importando as rotas definidas em outro arquivo (presumivelmente './routes')
+const routes = require('./routes');
 
-// Configurar cabeçalhos CORS para permitir solicitações de qualquer origem
+// Configurando o uso do body-parser para lidar com JSON e URL-encoded
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Configurando cabeçalhos de resposta para permitir requisições de qualquer origem (CORS)
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Permitir solicitações de qualquer origem
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Métodos permitidos
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); // Cabeçalhos permitidos
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
+// Servindo arquivos estáticos a partir do diretório 'public' quando as URLs começam com '/GP5/public'
 app.use('/GP5/public', express.static('public'));
 
-// Use as rotas importadas do arquivo 'routes.js'
+// Usando as rotas definidas no arquivo importado
 app.use(routes);
 
-// O servidor começa a escutar na porta especificada
+// Inicializando o servidor Express na porta especificada
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
 
-
-// Configurações MQTT
-const mqttBrokerUrl = 'wss://mqtt-dashboard.com:8884/mqtt'; // Endereço do broker MQTT
-const mqttClientId = 'clientId-zp6TCxjTBz'; // ID do cliente MQTT
-const mqttTopic = 'INTELI-RNP-M4T08-GP5'; // Tópico MQTT
-// Caminho completo para o banco de dados SQLite
+// Configurações MQTT e banco de dados SQLite
+const mqttBrokerUrl = 'wss://mqtt-dashboard.com:8884/mqtt';
+const mqttClientId = 'clientId-zp6TCxjTBz';
+const mqttTopic = 'INTELI-RNP-M4T08-GP5';
 const dbFilePath = 'public/viagens.db';
 
-// Conectar ao banco de dados SQLite
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(dbFilePath);
 
-// Tratar mensagens recebidas do MQTT
+// Função para lidar com mensagens MQTT recebidas
 const handleMqttMessage = (topic, message) => {
-  const dataHora = new Date().toISOString(); // Data e hora atual
-  // Parse da mensagem recebida (formato 'CODIGO_ATIVO,LAT,LONG')
+  const dataHora = new Date().toISOString();
   const parts = message.toString().split(',').map(part => part.trim());
   if (parts.length === 3 && !isNaN(parseFloat(parts[1])) && !isNaN(parseFloat(parts[2]))) {
     const [codigoAtivo, latitude, longitude] = parts;
-    // Inserir dados na tabela 'locs' do banco de dados SQLite
     db.run(
       'INSERT INTO locs (latitude, longitude, data_hora, codigo_ativo) VALUES (?, ?, ?, ?)',
       [parseFloat(latitude), parseFloat(longitude), dataHora, codigoAtivo],
@@ -61,26 +63,31 @@ const handleMqttMessage = (topic, message) => {
   }
 };
 
-// Conectar ao broker MQTT
+// Importando e configurando o cliente MQTT
 const mqtt = require('mqtt');
 const client = mqtt.connect(mqttBrokerUrl, { clientId: mqttClientId });
 
-// Subscrever ao tópico MQTT
+let isSubscribed = false;
+
+// Lidando com a conexão MQTT bem-sucedida
 client.on('connect', () => {
   console.log(`Conectado ao broker MQTT: ${mqttBrokerUrl}`);
-  client.subscribe(mqttTopic, (err) => {
-    if (!err) {
-      console.log(`Inscrito no tópico MQTT: ${mqttTopic}`);
-    } else {
-      console.error('Erro ao se inscrever no tópico MQTT:', err);
-    }
-  });
+  if (!isSubscribed) {
+    client.subscribe(mqttTopic, (err) => {
+      if (!err) {
+        isSubscribed = true;
+        console.log(`Inscrito no tópico MQTT: ${mqttTopic}`);
+      } else {
+        console.error('Erro ao se inscrever no tópico MQTT:', err);
+      }
+    });
+  }
 });
 
-// Lidar com mensagens MQTT recebidas
+// Lidando com mensagens MQTT recebidas
 client.on('message', handleMqttMessage);
 
-// Lidar com erros de conexão MQTT
+// Lidando com erros de conexão MQTT
 client.on('error', (error) => {
   if (error.code === 'ERR_SOCKET_CONNECTION_TIMEOUT') {
     console.log('Falha na conexão MQTT, tentando novamente...');
@@ -89,8 +96,7 @@ client.on('error', (error) => {
   }
 });
 
-
-// Processo principal do programa
+// Lidando com o sinal SIGINT (Ctrl+C) para encerrar o servidor e fechar o banco de dados
 process.on('SIGINT', () => {
   console.log('Desconectando do broker MQTT e fechando o banco de dados.');
   client.end();
