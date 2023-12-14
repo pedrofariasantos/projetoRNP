@@ -135,42 +135,26 @@
 
 						<body>
 							<div class="form-group">
-								<label for="startCity">Cidade de partida:</label>
+								<label for="startCity">Cidade de destino:</label>
 								<select class="form-select" id="startCity">
 									<option value="Biguaçu">Biguaçu</option>
-									<option value="Blumenau">Blumenau</option>
-									<option value="Capivari de Baixo">Capivari de Baixo</option>
-									<option value="Caxias do Sul">Caxias do Sul</option>
-									<option value="Curitiba">Curitiba</option>
-									<option value="Florianópolis">Florianópolis</option>
-									<option value="Gravataí">Gravataí</option>
-									<option value="Itajaí">Itajaí</option>
+									<option value="Porto Alegre">Porto Alegre</option>
 									<option value="Joinville">Joinville</option>
 									<option value="Palhoça">Palhoça</option>
-									<option value="Porto Alegre">Porto Alegre</option>
-									<option value="São Francisco de Paula">São Francisco de Paula</option>
+									<option value="Caxias do Sul">Caxias do Sul</option>
 									<option value="Siderópolis">Siderópolis</option>
-									<option value="Manutenção">MANUTENÇÃO</option>
 								</select>
 							</div>
-		
+
 							<div class="form-group">
-								<label for="endCity">Cidade de destino</label>
+								<label for="endCity">Cidade de partida:</label>
 								<select class="form-select" id="endCity">
 									<option value="Biguaçu">Biguaçu</option>
-									<option value="Blumenau">Blumenau</option>
-									<option value="Capivari de Baixo">Capivari de Baixo</option>
-									<option value="Caxias do Sul">Caxias do Sul</option>
-									<option value="Curitiba">Curitiba</option>
-									<option value="Florianópolis">Florianópolis</option>
-									<option value="Gravataí">Gravataí</option>
-									<option value="Itajaí">Itajaí</option>
+									<option value="Porto Alegre">Porto Alegre</option>
 									<option value="Joinville">Joinville</option>
 									<option value="Palhoça">Palhoça</option>
-									<option value="Porto Alegre">Porto Alegre</option>
-									<option value="São Francisco de Paula">São Francisco de Paula</option>
+									<option value="Caxias do Sul">Caxias do Sul</option>
 									<option value="Siderópolis">Siderópolis</option>
-									<option value="Manutenção">MANUTENÇÃO</option>
 								</select>
 							</div>
 							<div class="form-group">
@@ -194,15 +178,7 @@
 						</div>
 					</div>
 				</main>
-				<script>document.addEventListener('DOMContentLoaded', function() {
-					var pathParts = window.location.pathname.split('/');
-					var codigoAtivo = pathParts[pathParts.length - 1];
-					if(codigoAtivo) {
-						document.getElementById('assetCodeInput').value = codigoAtivo;
-					}
-				});
-				
-				</script>
+
 				<script>
 					const botaoAjuda = document.getElementById('botao-ajuda');
 					const modalAjuda = document.getElementById('modal-ajuda');
@@ -241,7 +217,7 @@
 
 				<script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
 						({ key: "AIzaSyC52kx_hADFDf9a5jb_BtIRaNaXS5aE9GA", v: "weekly" });</script>
-				<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 
 
 
