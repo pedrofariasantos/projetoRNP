@@ -150,15 +150,22 @@ router.get('/viagem', (req, res) => {
 });
 
 // Rota para servir a página de entrega e buscar dados
-router.get('/entrega', (req, res) => {
-    // Se houver parâmetros de consulta, filtrar viagens
-    if (Object.keys(req.query).length > 0) {
-        filtrarViagens(req, res);
-    } else {
-        // Se não houver parâmetros de consulta, enviar arquivo HTML
-        res.sendFile(path.join(__dirname, 'public/entrega.html'));
-    }
+router.get('/entrega/:codigo_ativo?', (req, res) => {
+    const codigo_ativo = req.params.codigo_ativo || '';
+
+    fs.readFile(path.join(__dirname, 'public/entrega.html'), 'utf8', function (err, html) {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Erro ao carregar a página');
+        }
+
+        // Injeta o código ativo no HTML
+        const modifiedHtml = html.replace('<!--INJETAR_CODIGO_ATIVO-->', `<script>document.addEventListener('DOMContentLoaded', function() { document.getElementById('assetCodeInput').value = '${codigo_ativo}'; });</script>`);
+
+        res.send(modifiedHtml);
+    });
 });
+
 
 // Rota para finalizar viagens
 router.post('/entrega', (req, res) => {
