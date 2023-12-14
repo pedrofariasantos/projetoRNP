@@ -175,4 +175,24 @@ router.post('/entrega', (req, res) => {
     });
 });
 
+// Rota para servir a página de entrega com parâmetro opcional
+router.get('/entrega/:codigo_ativo?', (req, res) => {
+    const codigo_ativo = req.params.codigo_ativo || '';
+
+    fs.readFile(path.join(__dirname, 'public/entrega.html'), 'utf8', function (err, html) {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Erro ao carregar a página');
+        }
+
+        // Substitua por um marcador no HTML que será substituído
+        let modifiedHtml = html.replace('<!--CODIGO_ATIVO-->', codigo_ativo);
+
+        res.send(modifiedHtml);
+    });
+});
+
+
+
+
 module.exports = router;

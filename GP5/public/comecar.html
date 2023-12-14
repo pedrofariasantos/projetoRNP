@@ -126,9 +126,18 @@
                         <select class="form-select" id="startCity">
                             <option value="Biguaçu">Biguaçu</option>
                             <option value="Porto Alegre">Porto Alegre</option>
+                            <option value="Blumenau">Blumenau</option>
+                            <option value="Capivari de Baixo">Capivari de Baixo</option>
+                            <option value="Caxias do Sul">Caxias do Sul</option>
+                            <option value="Curitiba">Curitiba</option>
+                            <option value="Florianópolis">Florianópolis</option>
+                            <option value="Gravataí">Gravataí</option>
+                            <option value="Itajaí">Itajaí</option>
                             <option value="Joinville">Joinville</option>
                             <option value="Palhoça">Palhoça</option>
                             <option value="Caxias do Sul">Caxias do Sul</option>
+                            <option value="Porto Alegre">Porto Alegre</option>
+                            <option value="São Francisco de Paula">São Francisco de Paula</option>
                             <option value="Siderópolis">Siderópolis</option>
                         </select>
                     </div>
@@ -138,9 +147,18 @@
                         <select class="form-select" id="endCity">
                             <option value="Biguaçu">Biguaçu</option>
                             <option value="Porto Alegre">Porto Alegre</option>
+                            <option value="Blumenau">Blumenau</option>
+                            <option value="Capivari de Baixo">Capivari de Baixo</option>
+                            <option value="Caxias do Sul">Caxias do Sul</option>
+                            <option value="Curitiba">Curitiba</option>
+                            <option value="Florianópolis">Florianópolis</option>
+                            <option value="Gravataí">Gravataí</option>
+                            <option value="Itajaí">Itajaí</option>
                             <option value="Joinville">Joinville</option>
                             <option value="Palhoça">Palhoça</option>
                             <option value="Caxias do Sul">Caxias do Sul</option>
+                            <option value="Porto Alegre">Porto Alegre</option>
+                            <option value="São Francisco de Paula">São Francisco de Paula</option>
                             <option value="Siderópolis">Siderópolis</option>
                             <option value="Manutenção">MANUTENÇÃO</option>
                         </select>
@@ -154,6 +172,8 @@
                     <div>
                         <button id="iniciarViagemBtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Iniciar Viagem</button>
+                       <button id="finalizarViagemBtn" type="button" class="btn btn-danger">
+                                Caso deseje FINALIZAR a viagem, clique aqui</button>      
                     </div>
                 </div>
                 <!-- Modal -->
@@ -254,7 +274,16 @@ document.getElementById('iniciarViagemBtn').addEventListener('click', function()
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
             integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG"
             crossorigin="anonymous"></script>
-
+            <script>
+                document.getElementById('finalizarViagemBtn').addEventListener('click', function() {
+                    var codigoAtivo = document.getElementById('assetCodeInput').value;
+                    if(codigoAtivo.trim() === '') {
+                        alert('Por favor, insira o código do ativo.');
+                        return;
+                    }
+                    window.location.href = '/entrega/' + encodeURIComponent(codigoAtivo);
+                });
+            </script>
         <script type="module">
             $(document).ready(function () {
                 $('textarea').each(function () {
