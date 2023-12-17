@@ -25,13 +25,19 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnMapa = document.getElementById('btnMapa');
     if (btnMapa) {
         btnMapa.onclick = function () {
-            window.location.href = '/mapa';
+            var iframe = document.getElementById('iframeMapa');
+            var mapaContainer = document.getElementById('mapaContainer');
+            
+            if (iframe && mapaContainer) {
+                iframe.src = '/mapa/:codigo_ativo/:data_hora_inicio/:data_hora_final?'; // Caminho do seu mapa
+                mapaContainer.style.display = 'block'; // Mostra o container do mapa
+            }
         };
     }
 
-    var btnMapa = document.getElementById('btnRegistro');
-    if (btnMapa) {
-        btnMapa.onclick = function () {
+    var btnRegistro = document.getElementById('btnRegistro');
+    if (btnRegistro) {
+        btnRegistro.onclick = function () {
             window.location.href = '/registrar';
         };
     }
@@ -41,9 +47,24 @@ document.addEventListener('DOMContentLoaded', function () {
     if (botaoBuscar) {
         botaoBuscar.addEventListener('click', buscarViagens);
     }
-
-
 });
+
+function criarBotaoMapa(viagem) {
+    var botaoMapa = document.createElement('button');
+    botaoMapa.className = 'btn btn-primary';
+    botaoMapa.textContent = 'Abrir Mapa';
+    botaoMapa.onclick = function (e) {
+        e.preventDefault(); // Impede a navegação padrão
+        var iframe = document.getElementById('iframeMapa');
+        var mapaContainer = document.getElementById('mapaContainer');
+        if (iframe && mapaContainer) {
+            // Constrói a URL com os parâmetros reais da viagem
+            iframe.src = `/mapa/${viagem.codigo_ativo}/${viagem.data_hora_inicio}/${viagem.data_hora_final || ''}`;
+            mapaContainer.style.display = 'block';
+        }
+    };
+    return botaoMapa;
+}
 
 function buscarViagens() {
     var startCityElem = document.getElementById('startCity');
@@ -73,51 +94,55 @@ function buscarViagens() {
     }
 
     fetch(`/viagem?${params.toString()}`)
-        .then(response => {
-            if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
-            return response.json();
-        })
-        .then(viagens => {
-            resultadosDiv.innerHTML = ''; // Limpa resultados anteriores
-            viagens.forEach(viagem => {
-                var card = document.createElement('div');
-                card.className = 'card';
-                card.style.width = '18rem';
+    .then(response => {
+        if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
+        return response.json();
+    })
+    .then(viagens => {
+        resultadosDiv.innerHTML = ''; // Limpa resultados anteriores
+        viagens.forEach(viagem => {
+            var card = document.createElement('div');
+            card.className = 'card';
+            card.style.width = '18rem';
 
-                var botaoMapa = document.createElement('button');
-                botaoMapa.className = 'btn btn-primary';
-                botaoMapa.textContent = 'Abrir Mapa';
-                botaoMapa.onclick = function () {
-                    window.location.href = `/mapa/${viagem.id_viagem}`;
-                };
+            var botaoMapa = document.createElement('button');
+            botaoMapa.className = 'btn btn-primary';
+            botaoMapa.textContent = 'Abrir Mapa';
+            botaoMapa.onclick = function () {
+                window.location.href = `/mapa/${viagem.id_viagem}`;
+            };
 
-                // Função para formatar a data e hora
-                function formatarDataHora(dataHora) {
-                    if (!dataHora) return 'Indisponível';
-                    var data = new Date(dataHora);
-                    return data.toLocaleString(); // Formata a data e hora conforme local
-                }
+            // Função para formatar a data e hora
+            function formatarDataHora(dataHora) {
+                if (!dataHora) return 'Indisponível';
+                var data = new Date(dataHora);
+                return data.toLocaleString(); // Formata a data e hora conforme local
+            }
 
-                var dataHoraInicio = formatarDataHora(viagem.data_hora_inicio);
-                var dataHoraFinal = viagem.data_hora_final ? formatarDataHora(viagem.data_hora_final) : 'null';
+            var dataHoraInicio = formatarDataHora(viagem.data_hora_inicio);
+            var dataHoraFinal = viagem.data_hora_final ? formatarDataHora(viagem.data_hora_final) : 'null';
 
-                card.innerHTML = `
-                <div class="card-body">
-                    <h5 class="card-title">Viagem: ${viagem.id_viagem}</h5>
-                    <p>De: ${viagem.local_saida} Para: ${viagem.destino}</p>
-                    <p>Código do Ativo: ${viagem.codigo_ativo}</p>
-                    <p>Iniciada em: ${dataHoraInicio}</p>
-                    <p>Finalizada em: ${dataHoraFinal}</p>
-                    <button class="btn btn-primary" onclick="window.location.href='/mapa/${viagem.codigo_ativo}/${viagem.data_hora_inicio}/${viagem.data_hora_final || ''}'">Abrir Mapa</button>
-                </div>
+            card.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title">Viagem: ${viagem.id_viagem}</h5>
+                <p>De: ${viagem.local_saida} Para: ${viagem.destino}</p>
+                <p>Código do Ativo: ${viagem.codigo_ativo}</p>
+                <p>Iniciada em: ${dataHoraInicio}</p>
+                <p>Finalizada em: ${dataHoraFinal}</p>
+            </div>
             `;
-                resultadosDiv.appendChild(card);
-            });
-        })
-        .catch(error => {
-            console.error('Erro ao buscar viagens:', error);
-            resultadosDiv.innerHTML = '<p>Ocorreu um erro ao buscar as viagens.</p>';
+    
+            // Adiciona o botão de mapa ao card
+            var botaoMapa = criarBotaoMapa(viagem);
+            card.querySelector('.card-body').appendChild(botaoMapa);
+    
+            resultadosDiv.appendChild(card);
         });
+    })
+    .catch(error => {
+        console.error('Erro ao buscar viagens:', error);
+        resultadosDiv.innerHTML = '<p>Ocorreu um erro ao buscar as viagens.</p>';
+    });
 }
 
 

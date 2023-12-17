@@ -14,10 +14,16 @@
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 
 <body>
 	<style>
+		#mapid {
+			height: 400px;
+		}
+
 		#sidebarMenu {
 			height: 100vh;
 		}
@@ -44,6 +50,13 @@
 
 		.botao-fechar {
 			float: right;
+			cursor: pointer;
+		}
+
+		.botao-fechar:hover,
+		.botao-fechar:focus {
+			color: black;
+			text-decoration: none;
 			cursor: pointer;
 		}
 	</style>
@@ -137,9 +150,18 @@
 									<select class="form-select" id="startCity">
 										<option value="Biguaçu">Biguaçu</option>
 										<option value="Porto Alegre">Porto Alegre</option>
+										<option value="Blumenau">Blumenau</option>
+										<option value="Capivari de Baixo">Capivari de Baixo</option>
+										<option value="Caxias do Sul">Caxias do Sul</option>
+										<option value="Curitiba">Curitiba</option>
+										<option value="Florianópolis">Florianópolis</option>
+										<option value="Gravataí">Gravataí</option>
+										<option value="Itajaí">Itajaí</option>
 										<option value="Joinville">Joinville</option>
 										<option value="Palhoça">Palhoça</option>
 										<option value="Caxias do Sul">Caxias do Sul</option>
+										<option value="Porto Alegre">Porto Alegre</option>
+										<option value="São Francisco de Paula">São Francisco de Paula</option>
 										<option value="Siderópolis">Siderópolis</option>
 									</select>
 								</div>
@@ -149,10 +171,20 @@
 									<select class="form-select" id="endCity">
 										<option value="Biguaçu">Biguaçu</option>
 										<option value="Porto Alegre">Porto Alegre</option>
+										<option value="Blumenau">Blumenau</option>
+										<option value="Capivari de Baixo">Capivari de Baixo</option>
+										<option value="Caxias do Sul">Caxias do Sul</option>
+										<option value="Curitiba">Curitiba</option>
+										<option value="Florianópolis">Florianópolis</option>
+										<option value="Gravataí">Gravataí</option>
+										<option value="Itajaí">Itajaí</option>
 										<option value="Joinville">Joinville</option>
 										<option value="Palhoça">Palhoça</option>
 										<option value="Caxias do Sul">Caxias do Sul</option>
+										<option value="Porto Alegre">Porto Alegre</option>
+										<option value="São Francisco de Paula">São Francisco de Paula</option>
 										<option value="Siderópolis">Siderópolis</option>
+										<option value="Manutenção">MANUTENÇÃO</option>
 									</select>
 								</div>
 
@@ -175,21 +207,19 @@
 										class="btn btn-primary btn-lg mb-2">Buscar</button>
 								</div>
 							</div>
-						</div>
-						<div class="row mt-3">
-							<!-- Card container -->
-							<div id="resultadosViagem"></div>
 
-							<!-- Card will be dynamically inserted here -->
 						</div>
-
-						<!-- Map container -->
-						<div class="col-md-6">
-							<iframe id="mapaFrame" width="100%" height="450" style="border:0;" allowfullscreen=""
-								loading="lazy"></iframe>
-						</div>
-				</div>
+						<main>
+							<div id="resultadosViagem" class="resultados">
+								<!-- Os cards de viagem serão inseridos aqui pelo JavaScript -->
+							</div>
+							<div id="mapaContainer" style="display:none;">
+								<iframe id="iframeMapa" src="" style="width:100%; height:400px;" frameborder="0"></iframe>
+							</div>							
 				</main>
+				<script>
+
+				</script>
 				<script>
 					const botaoAjuda = document.getElementById('botao-ajuda');
 					const modalAjuda = document.getElementById('modal-ajuda');
