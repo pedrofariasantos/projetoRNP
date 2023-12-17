@@ -160,7 +160,7 @@
                             <option value="Porto Alegre">Porto Alegre</option>
                             <option value="São Francisco de Paula">São Francisco de Paula</option>
                             <option value="Siderópolis">Siderópolis</option>
-                            <option value="Manutenção">MANUTENÇÃO</option>
+                            <option value="MANUTENÇÃO">MANUTENÇÃO</option>
                         </select>
                     </div>
 
@@ -207,25 +207,30 @@
 
         <script>
 document.getElementById('iniciarViagemBtn').addEventListener('click', function() {
-    // Obter o valor do código do ativo
+    var cidadeDestino = document.getElementById('endCity').value;
     var codigoAtivo = document.getElementById('assetCodeInput').value;
 
-    // Verificar se o código do ativo não está vazio
-    if(codigoAtivo.trim() === '') {
+    // Verifica se o código do ativo está vazio
+    if (codigoAtivo.trim() === '') {
         alert('Por favor, insira o código do ativo.');
         return;
     }
 
-    // Mensagem a ser enviada
-    var mensagem = codigoAtivo + ',GPS-ON';
+    // Não faz nada se a cidade de destino for 'MANUTENÇÃO'
+    if (cidadeDestino === 'MANUTENÇÃO') {
+        return; // Encerra a função aqui
+    }
 
-    // Conecte-se ao broker MQTT
+    // Se a cidade de destino não for 'MANUTENÇÃO', envia a mensagem MQTT
+    var mensagem = codigoAtivo + ',GPS-ON';
+    enviarMensagemMQTT(mensagem);
+});
+
+function enviarMensagemMQTT(mensagem) {
     const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt');
 
     client.on('connect', function () {
         console.log('Conectado ao broker MQTT');
-
-        // Enviar a mensagem para o tópico
         client.publish('INTELI-RNP-M4T08-GP5', mensagem, function() {
             console.log('Mensagem enviada:', mensagem);
             client.end(); // Encerra a conexão após enviar a mensagem
@@ -235,7 +240,8 @@ document.getElementById('iniciarViagemBtn').addEventListener('click', function()
     client.on('error', function (error) {
         console.log('Erro ao conectar ao broker MQTT:', error);
     });
-});
+}
+
 
         </script>
         
