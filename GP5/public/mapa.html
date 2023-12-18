@@ -17,23 +17,31 @@
         // Dados de localização injetados pelo servidor
         var locData = [];
 
-        var mymap = L.map('mapid').setView([0, 0], 13);
+        var mymap = L.map('mapid').setView([0, 0], 2); // Define um centro e zoom padrão
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 3,
+            maxZoom: 19,
             attribution: '© OpenStreetMap contributors'
         }).addTo(mymap);
 
-        // Verifica se há dados de localização e ajusta o centro do mapa
-        if (locData.length > 0) {
-            mymap.setView([locData[0].latitude, locData[0].longitude], 13);
-        }
+        var markers = [];
 
         // Adiciona marcadores para cada localização
         locData.forEach(function(loc) {
+            var date = new Date(loc.data_hora);
+            var formattedDate = date.toLocaleDateString('pt-BR') + ', ' + date.toLocaleTimeString('pt-BR');
             var marker = L.marker([loc.latitude, loc.longitude]).addTo(mymap);
-            marker.bindPopup("Data e Hora: " + loc.data_hora).openPopup();
+            marker.bindPopup(formattedDate).openPopup();
+            markers.push(marker);
         });
+
+        // Ajusta a visualização do mapa para incluir todos os marcadores ou usa o centro padrão
+        if (markers.length > 0) {
+            var group = new L.featureGroup(markers);
+            mymap.fitBounds(group.getBounds());
+        } else {
+            mymap.setView([0, 0], 2); // Usa o centro e zoom padrão se não houver dados
+        }
     </script>
 </body>
 </html>

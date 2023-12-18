@@ -53,16 +53,31 @@ function criarBotaoMapa(viagem) {
     var botaoMapa = document.createElement('button');
     botaoMapa.className = 'btn btn-primary';
     botaoMapa.textContent = 'Abrir Mapa';
-    botaoMapa.onclick = function (e) {
-        e.preventDefault(); // Impede a navegação padrão
-        var iframe = document.getElementById('iframeMapa');
-        var mapaContainer = document.getElementById('mapaContainer');
-        if (iframe && mapaContainer) {
-            // Constrói a URL com os parâmetros reais da viagem
-            iframe.src = `/mapa/${viagem.codigo_ativo}/${viagem.data_hora_inicio}/${viagem.data_hora_final || ''}`;
-            mapaContainer.style.display = 'block';
+    botaoMapa.onclick = function () {
+        // Função para formatar a data e hora
+        function formatarDataHora(dataHora) {
+            if (!dataHora) return 'Indisponível';
+            var data = new Date(dataHora);
+            return data.toLocaleString(); // Formata a data e hora conforme local
         }
+
+        // Define os detalhes da viagem no cabeçalho do modal
+        document.getElementById('mapModalTitle').textContent = `Viagem: ${viagem.id_viagem}, De ${viagem.local_saida} Para ${viagem.destino}`;
+
+        // Formata as datas e inclui no subtítulo
+        var dataHoraInicio = formatarDataHora(viagem.data_hora_inicio);
+        var dataHoraFinal = viagem.data_hora_final ? formatarDataHora(viagem.data_hora_final) : 'Indisponível';
+        document.getElementById('mapModalSubTitle').textContent = `Código do Ativo: ${viagem.codigo_ativo}, Início: ${dataHoraInicio}, Final: ${dataHoraFinal}`;
+
+        // Configura a URL do iframe
+        var iframe = document.getElementById('mapIframe');
+        iframe.src = `/mapa/${viagem.id_viagem}/${viagem.codigo_ativo}/${viagem.data_hora_inicio}/${viagem.data_hora_final || ''}`;
+
+        // Exibe o modal
+        var modal = document.getElementById('mapModal');
+        modal.style.display = "block";
     };
+
     return botaoMapa;
 }
 
@@ -109,7 +124,7 @@ function buscarViagens() {
             botaoMapa.className = 'btn btn-primary';
             botaoMapa.textContent = 'Abrir Mapa';
             botaoMapa.onclick = function () {
-                window.location.href = `/mapa/${viagem.id_viagem}`;
+                window.location.href = `/mapa/${viagem.id_viagem}/${viagem.codigo_ativo}/${viagem.data_hora_inicio}/${viagem.data_hora_final || ''}`;
             };
 
             // Função para formatar a data e hora

@@ -63,9 +63,8 @@ router.post('/comecar_viagem/:codigo_ativo?', (req, res) => {
 
 
 // Rota para servir a página do mapa
-// Rota para servir a página do mapa
-router.get('/mapa/:codigo_ativo/:data_hora_inicio/:data_hora_final?', (req, res) => {
-    let { codigo_ativo, data_hora_inicio, data_hora_final } = req.params;
+router.get('/mapa/:idViagem/:codigo_ativo/:data_hora_inicio/:data_hora_final?', (req, res) => {
+    let { idViagem, codigo_ativo, data_hora_inicio, data_hora_final } = req.params;
     let sql;
     let params = [codigo_ativo, data_hora_inicio];
 
