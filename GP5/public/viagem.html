@@ -121,7 +121,7 @@
 							<h6
 								class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase me-1">
 								<a class="link-secondary" href="/entrega" style="text-decoration: none;">
-									<span style="margin-bottom: 2px">Entrega</span>
+									<span style="margin-bottom: 2px">Finalizar Viagem</span>
 									<span data-feather="file-text" class="align-text-bottom"></span>
 								</a>
 							</h6>
@@ -148,6 +148,7 @@
 								<div class="form-group">
 									<label for="startCity">Cidade de partida:</label>
 									<select class="form-select" id="startCity">
+										<option value="" selected>Selecione uma cidade</option>
 										<option value="Biguaçu">Biguaçu</option>
 										<option value="Porto Alegre">Porto Alegre</option>
 										<option value="Blumenau">Blumenau</option>
@@ -169,6 +170,7 @@
 								<div class="form-group">
 									<label for="endCity">Cidade de destino</label>
 									<select class="form-select" id="endCity">
+										<option value="" selected>Selecione uma cidade</option>
 										<option value="Biguaçu">Biguaçu</option>
 										<option value="Porto Alegre">Porto Alegre</option>
 										<option value="Blumenau">Blumenau</option>
@@ -193,13 +195,14 @@
 									<input type="text" class="form-control" id="assetCodeInput">
 								</div>
 								<br>
-								<input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="1"
-									autocomplete="off" checked>
-								<label class="btn btn-outline-primary" for="btnradio1">Finalizada</label>
-
-								<input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="0"
-									autocomplete="off">
-								<label class="btn btn-outline-primary" for="btnradio2">Não finalizada</label>
+								<div class="form-group">
+									<label for="statusViagem">Status da Viagem:</label>
+									<select class="form-select" id="statusViagem">
+										<option value="" selected>Selecione um status</option>
+										<option value="1">Finalizada</option>
+										<option value="0">Não finalizada</option>
+									</select>
+								</div>
 								<!-- Botão Começar -->
 								<div>
 									<br>

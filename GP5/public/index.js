@@ -71,7 +71,7 @@ function buscarViagens() {
     var endCityElem = document.getElementById('endCity');
     var assetCodeElem = document.getElementById('assetCodeInput');
     var resultadosDiv = document.getElementById('resultadosViagem');
-    var viagemFinalizadaElem = document.querySelector('input[name="btnradio"]:checked');
+    var statusViagemElem = document.getElementById('statusViagem');
 
     var params = new URLSearchParams();
     if (startCityElem && startCityElem.value) {
@@ -86,11 +86,11 @@ function buscarViagens() {
         params.append('codigo_ativo', assetCodeElem.value);
         console.log('Código do ativo:', assetCodeElem.value);
     }
-    if (viagemFinalizadaElem) {
-        params.append('viagemFinalizada', viagemFinalizadaElem.value);
-        console.log('Viagem finalizada:', viagemFinalizadaElem.value);
+    if (statusViagemElem && statusViagemElem.value) {
+        params.append('viagemFinalizada', statusViagemElem.value);
+        console.log('Status da viagem:', statusViagemElem.value === "1" ? "Finalizada" : "Não finalizada");
     } else {
-        console.log('Viagem finalizada: Não definido');
+        console.log('Status da viagem: Não definido');
     }
 
     fetch(`/viagem?${params.toString()}`)
@@ -147,12 +147,22 @@ function buscarViagens() {
 
 
 function buscarEntregas() {
-    console.log("Função buscarEntregas chamada");
-
     var startCityElem = document.getElementById('startCity');
     var endCityElem = document.getElementById('endCity');
     var assetCodeElem = document.getElementById('assetCodeInput');
     var resultadosDiv = document.getElementById('resultadosEntrega');
+
+    var params = new URLSearchParams();
+    
+    if (startCityElem && startCityElem.value) {
+        params.append('local_saida', startCityElem.value);
+    }
+    if (endCityElem && endCityElem.value) {
+        params.append('destino', endCityElem.value);
+    }
+    if (assetCodeElem && assetCodeElem.value) {
+        params.append('codigo_ativo', assetCodeElem.value);
+    }
 
     console.log("Cidade de partida: ", startCityElem ? startCityElem.value : "Elemento não encontrado");
     console.log("Cidade de destino: ", endCityElem ? endCityElem.value : "Elemento não encontrado");
