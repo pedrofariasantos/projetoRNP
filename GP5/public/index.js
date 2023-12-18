@@ -206,13 +206,13 @@ function criarCardEntrega(viagem) {
             <p>De: ${viagem.local_saida} Para: ${viagem.destino}</p>
             <p>Código do Ativo: ${viagem.codigo_ativo}</p>
             <p>Finalizada: Não</p>
-            <button class="btn btn-danger" onclick="finalizarViagem(${viagem.id_viagem})">Finalizar Viagem</button>
+            <button class="btn btn-danger" onclick="finalizarViagem(${viagem.id_viagem}, '${viagem.codigo_ativo}')">Finalizar Viagem</button>
         </div>
     `;
     return card;
 }
 
-function finalizarViagem(idViagem) {
+function finalizarViagem(idViagem, codigoAtivo) {
     // Primeira parte: Fazer a requisição para finalizar a viagem
     fetch('/entrega', {
         method: 'POST',
@@ -232,10 +232,11 @@ function finalizarViagem(idViagem) {
 
             client.on('connect', function () {
                 console.log('Conectado ao broker MQTT para finalizar a viagem', idViagem);
-
-                // Enviar a mensagem "GPS-OFF" para o tópico
-                client.publish('INTELI-RNP-M4T08-GP5', 'GPS-OFF', function () {
-                    console.log('Mensagem enviada: GPS-OFF');
+        
+                // Altere a mensagem para incluir o código ativo
+                const mensagem = codigoAtivo + ',GPS-OFF';
+                client.publish('INTELI-RNP-M4T08-GP5', mensagem, function () {
+                    console.log('Mensagem enviada:', mensagem);
                     client.end(); // Encerra a conexão após enviar a mensagem
                 });
             });
